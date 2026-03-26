@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.14.37111.16 d17.14
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "finance.debts", "finance.debts\finance.debts.csproj", "{8E52597D-BC1A-472D-B6B8-36130F2E4933}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "finance.debts.producer", "finance.debts\finance.debts.producer.csproj", "{8E52597D-BC1A-472D-B6B8-36130F2E4933}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

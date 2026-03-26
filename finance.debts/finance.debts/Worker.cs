@@ -1,9 +1,8 @@
-using finance.debts.Domain;
-using finance.Infrastructure;
+using finance.debts.producer.Domain.Debts;
+using finance.debts.producer.Infrastructure;
 using MassTransit;
-using MassTransit.Transports;
 
-namespace finance.debts
+namespace finance.debts.producer
 {
     public class Worker : BackgroundService
     {
@@ -22,7 +21,7 @@ namespace finance.debts
 
             while (!stoppingToken.IsCancellationRequested)
             {
-                var debt = new Domain.Debt
+                var debt = new Debt
                 {
                     ClientId = random.Next(1, 1000),
                     AmountDue = Math.Round((decimal)(random.NextDouble() * 2500), 2),

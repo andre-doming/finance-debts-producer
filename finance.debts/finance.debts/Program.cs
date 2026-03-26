@@ -1,8 +1,8 @@
-﻿using finance.debts;
-using finance.debts.Domain;
-using finance.Infrastructure;
-using MassTransit;
+﻿using finance.debts.producer;
+using finance.debts.producer.Domain.Debts;
+using finance.debts.producer.Infrastructure;
 using Microsoft.EntityFrameworkCore;
+using MassTransit;
 
 var builder = Host.CreateApplicationBuilder(args);
 builder.Services.AddHostedService<Worker>();
@@ -20,7 +20,6 @@ builder.Services.AddMassTransit(x =>
             h.Password("SvcDebts!7pQ3a");
         });
 
-        // 👇 AQUI FUNCIONA EM TODAS VERSÕES
         cfg.Message<DebtCreatedEvent>(e =>
         {
             e.SetEntityName("finance.debts.created");

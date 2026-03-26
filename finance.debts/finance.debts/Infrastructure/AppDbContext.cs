@@ -1,33 +1,34 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using finance.debts.Domain;
+using finance.debts.producer.Domain.Debts;
 
-namespace finance.Infrastructure;
-
-public class AppDbContext : DbContext
+namespace finance.debts.producer.Infrastructure
 {
-    public AppDbContext(DbContextOptions<AppDbContext> options)
-        : base(options)
+    public class AppDbContext : DbContext
     {
-    }
+        public AppDbContext(DbContextOptions<AppDbContext> options)
+            : base(options)
+        {
+        }
 
-    public DbSet<Debt> Debts => Set<Debt>();
+        public DbSet<Debt> Debts => Set<Debt>();
 
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
-        modelBuilder.Entity<Debt>(entity =>
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Debt>(entity =>
             {
-                entity.ToTable("debts");
+                modelBuilder.Entity<Debt>(entity =>
+                {
+                    entity.ToTable("debts");
 
-                entity.HasKey(x => x.DebtId);
+                    entity.HasKey(x => x.DebtId);
 
-                entity.Property(x => x.DebtId).HasColumnName("debt_id");
-                entity.Property(x => x.ClientId).HasColumnName("client_id");
-                entity.Property(x => x.AmountDue).HasColumnName("amount_due").HasColumnType("decimal(10,2)");
-                entity.Property(x => x.StatusId).HasColumnName("status_id");
-                entity.Property(x => x.CreatedAt).HasColumnName("created_at");
+                    entity.Property(x => x.DebtId).HasColumnName("debt_id");
+                    entity.Property(x => x.ClientId).HasColumnName("client_id");
+                    entity.Property(x => x.AmountDue).HasColumnName("amount_due").HasColumnType("decimal(10,2)");
+                    entity.Property(x => x.StatusId).HasColumnName("status_id");
+                    entity.Property(x => x.CreatedAt).HasColumnName("created_at");
+                });
             });
-        });
+        }
     }
 }

@@ -1,10 +1,10 @@
-<Project Sdk="Microsoft.NET.Sdk.Worker">
+﻿<Project Sdk="Microsoft.NET.Sdk.Worker">
 
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <UserSecretsId>dotnet-finance.debts-d4d4a2d4-509c-4628-805c-de0d18d96f3b</UserSecretsId>
+    <UserSecretsId>dotnet-finance.debts.producer-d4d4a2d4-509c-4628-805c-de0d18d96f3b</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
