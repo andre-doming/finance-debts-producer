@@ -1,6 +1,7 @@
 using finance.debts.Domain;
 using finance.Infrastructure;
 using MassTransit;
+using MassTransit.Transports;
 
 namespace finance.debts
 {
@@ -35,20 +36,19 @@ namespace finance.debts
                 context.Debts.Add(debt);
                 await context.SaveChangesAsync(stoppingToken);
 
-                var publishEndpoint = scope.ServiceProvider.GetRequiredService<IPublishEndpoint>(); //descomentar
+                var publishEndpoint = scope.ServiceProvider.GetRequiredService<IPublishEndpoint>(); 
 
-                //var sendEndpointProvider = scope.ServiceProvider.GetRequiredService<ISendEndpointProvider>(); //remover 
-
-                //var endpoint = await sendEndpointProvider.GetSendEndpoint(new Uri("queue:finance.debts.queue")); //remover 
-
-
-                await publishEndpoint.Publish(new DebtCreatedEvent //await endpoint.Send(new DebtCreatedEvent  //descomentar
+                await publishEndpoint.Publish(new DebtCreatedEvent
                 {
                     DebtId = debt.DebtId,
                     ClientId = debt.ClientId,
                     AmountDue = debt.AmountDue,
                     StatusId = debt.StatusId,
-                    CreatedAt = debt.CreatedAt
+                    CreatedAt = DateTime.UtcNow
+                },
+                ctx =>
+                {
+                    ctx.CorrelationId = Guid.NewGuid();
                 });
 
                 _logger.LogInformation("Saved Debt to DB: ClientId={ClientId}, Amount={Amount}",
