@@ -1,5 +1,5 @@
 ﻿using finance.debts.producer;
-using finance.debts.producer.Domain.Debts;
+using finance.debts.domain.Entities;
 using finance.debts.producer.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using MassTransit;

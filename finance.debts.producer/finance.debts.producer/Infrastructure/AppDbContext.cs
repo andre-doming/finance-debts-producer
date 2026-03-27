@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using finance.debts.producer.Domain.Debts;
+using finance.debts.domain.Entities;
 
 namespace finance.debts.producer.Infrastructure
 {
@@ -22,11 +22,14 @@ namespace finance.debts.producer.Infrastructure
 
                     entity.HasKey(x => x.DebtId);
 
-                    entity.Property(x => x.DebtId).HasColumnName("debt_id");
-                    entity.Property(x => x.ClientId).HasColumnName("client_id");
-                    entity.Property(x => x.AmountDue).HasColumnName("amount_due").HasColumnType("decimal(10,2)");
-                    entity.Property(x => x.StatusId).HasColumnName("status_id");
-                    entity.Property(x => x.CreatedAt).HasColumnName("created_at");
+                    entity.Property(e => e.DebtId).HasColumnName("debt_id");
+                    entity.Property(e => e.ClientId).HasColumnName("client_id");
+                    entity.Property(e => e.AmountDue).HasColumnName("amount_due");
+                    entity.Property(e => e.AmountPaid).HasColumnName("amount_paid");
+                    entity.Property(e => e.PaymentDate).HasColumnName("payment_date");
+                    entity.Property(e => e.CorrelationId).HasColumnName("correlation_id");
+                    entity.Property(e => e.StatusId).HasColumnName("status_id");
+                    entity.Property(e => e.CreatedAt).HasColumnName("created_at");
                 });
             });
         }

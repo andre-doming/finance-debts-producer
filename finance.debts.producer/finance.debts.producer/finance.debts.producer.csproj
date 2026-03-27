@@ -21,7 +21,10 @@
 
   <ItemGroup>
     <Folder Include="Common\" />
-    <Folder Include="Domain\Debts\CreateDebt\" />
     <Folder Include="Features\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\finance-debts-domain\finance.debts\finance.debts.domain\finance.debts.domain.csproj" />
   </ItemGroup>
 </Project>

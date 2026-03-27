@@ -1,4 +1,4 @@
-using finance.debts.producer.Domain.Debts;
+using finance.debts.domain.Entities;
 using finance.debts.producer.Infrastructure;
 using MassTransit;
 
@@ -21,13 +21,14 @@ namespace finance.debts.producer
 
             while (!stoppingToken.IsCancellationRequested)
             {
-                var debt = new Debt
-                {
-                    ClientId = random.Next(1, 1000),
-                    AmountDue = Math.Round((decimal)(random.NextDouble() * 2500), 2),
-                    StatusId = 1,
-                    CreatedAt = DateTime.UtcNow
-                };
+                var correlationId = Guid.NewGuid();
+
+                var debt = new Debt(
+                    debtId: 0, 
+                    clientId: random.Next(1, 1000),
+                    amountDue: Math.Round((decimal)random.NextDouble() * 2500, 2),
+                    correlationId: correlationId
+                );
 
                 using var scope = _scopeFactory.CreateScope();
                 var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
@@ -42,12 +43,11 @@ namespace finance.debts.producer
                     DebtId = debt.DebtId,
                     ClientId = debt.ClientId,
                     AmountDue = debt.AmountDue,
-                    StatusId = debt.StatusId,
-                    CreatedAt = DateTime.UtcNow
+                    CorrelationId = correlationId
                 },
                 ctx =>
                 {
-                    ctx.CorrelationId = Guid.NewGuid();
+                    ctx.CorrelationId = correlationId;
                 });
 
                 _logger.LogInformation("Saved Debt to DB: ClientId={ClientId}, Amount={Amount}",
